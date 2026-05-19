@@ -91,9 +91,13 @@ def search_properties(
         results = [p for p in results if p.is_featured]
 
     if keywords is not None:
-        results = [p for p in results
-               for kw in keywords
-               if kw.lower() in p.title.lower() or kw.lower() in p.description.lower()]
+        results = [
+            p for p in results
+            if any(
+                kw.lower() in p.title.lower() or kw.lower() in p.description.lower()
+                for kw in keywords
+            )
+        ]
 
     return results
 
