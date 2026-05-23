@@ -94,10 +94,38 @@ def search_properties(
         results = [
             p for p in results
             if any(
-                kw.lower() in p.title.lower() or kw.lower() in p.description.lower()
+                kw.lower() in p.title.lower()
+                or kw.lower() in p.description.lower()
+                or (p.locality and kw.lower() in p.locality.lower())
                 for kw in keywords
             )
         ]
+
+    return results
+
+def sort_properties(
+        properties: list[Property],
+        sort_by: str = "price",
+        descending: bool = False,
+        featured_first: bool = True,
+) -> list[Property]:
+
+    results = properties
+    if sort_by == "price":
+        results = sorted(results, key=lambda p: p.price, reverse=descending)
+    elif sort_by == "bedrooms":
+        results = sorted(results, key=lambda p: p.bedrooms, reverse=descending)
+    elif sort_by == "area_sqft":
+        results = sorted(results, key=lambda p: p.area_sqft, reverse=descending)
+    elif sort_by == "city":
+        results = sorted(results, key=lambda p: p.city, reverse=descending)
+    elif sort_by == "locality":
+        results = sorted(results, key=lambda p: p.locality, reverse=descending)
+    else:
+        results = sorted(results, key=lambda p: p.listing_type.value, reverse=descending)
+
+    if featured_first:
+        results = sorted(results, key=lambda p: not p.is_featured)
 
     return results
 

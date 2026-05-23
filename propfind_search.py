@@ -1,4 +1,4 @@
-from models import Property, ListingType, PropertyType, FurnishingStatus, search_properties
+from models import Property, ListingType, PropertyType, FurnishingStatus, search_properties, sort_properties
 
 if __name__ == "__main__":
     # This block runs only when you do: python your_file.py
@@ -101,3 +101,15 @@ if __name__ == "__main__":
     print("--- Listing Type ---")
     for p in search_properties(props, listing_type=ListingType.RENT):
         print(f"  {p.title} - ₹{p.price}")
+
+    print("--- Sorted by price ascending ---")
+    for p in sort_properties(props, sort_by="price"):
+        print(f"  {p.title} - ₹{p.price}")
+
+    print("--- Sorted by price descending ---")
+    for p in sort_properties(props, sort_by="price", descending=True):
+        print(f"  {p.title} - ₹{p.price}")
+
+    print("--- Price ascending, no featured bump ---")
+    for p in sort_properties(props, sort_by="price", featured_first=False):
+        print(f"  {p.title} - ₹{p.price} {'⭐' if p.is_featured else ''}")
