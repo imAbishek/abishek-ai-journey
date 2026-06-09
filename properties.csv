@@ -1,0 +1,7 @@
+property_id,city,price_lakhs,area_sqft,type
+1,Chennai,45.0,850,apartment
+2,coimbatore,30.0,600,apartment
+3,CHENNAI,,1200,villa
+4,Bangalore,120.0,2500,villa
+5,,55.0,900,apartment
+6,Coimbatore,28.0,,apartment
